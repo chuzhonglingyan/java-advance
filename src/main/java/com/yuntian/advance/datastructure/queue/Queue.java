@@ -1,4 +1,4 @@
-package com.yuntian.arithmetic.queue;
+package com.yuntian.advance.datastructure.queue;
 
 /**
  * Created by yuntian.

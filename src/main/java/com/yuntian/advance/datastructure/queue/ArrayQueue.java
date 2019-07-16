@@ -1,6 +1,6 @@
-package com.yuntian.arithmetic.queue;
+package com.yuntian.advance.datastructure.queue;
 
-import com.yuntian.arithmetic.list.ArrayList;
+import com.yuntian.advance.datastructure.list.ArrayList;
 
 /**
  * @Auther: yuntian

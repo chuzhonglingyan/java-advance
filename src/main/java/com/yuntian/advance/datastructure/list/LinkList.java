@@ -1,4 +1,4 @@
-package com.yuntian.arithmetic.list;
+package com.yuntian.advance.datastructure.list;
 
 /**
  * @Auther: yuntian

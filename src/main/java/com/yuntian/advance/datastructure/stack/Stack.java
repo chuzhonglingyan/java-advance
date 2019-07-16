@@ -1,4 +1,4 @@
-package com.yuntian.arithmetic.stack;
+package com.yuntian.advance.datastructure.stack;
 
 /**
  * @Auther: yuntian

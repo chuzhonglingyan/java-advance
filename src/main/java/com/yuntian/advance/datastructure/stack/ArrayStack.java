@@ -1,6 +1,6 @@
-package com.yuntian.arithmetic.stack;
+package com.yuntian.advance.datastructure.stack;
 
-import com.yuntian.arithmetic.list.ArrayList;
+import com.yuntian.advance.datastructure.list.ArrayList;
 
 /**
  * @author Administrator
