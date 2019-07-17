@@ -26,28 +26,33 @@ public class ArrayQueue<E> implements Queue<E> {
      *
      * @param e
      */
+    @Override
     public void enqueue(E e) {
-        list.add(e);
+        list.addLast(e);
     }
 
     /**
      * 队头出队 复杂度O(n)
      */
+    @Override
     public E dequeue() {
-        return list.remove(0);
+        return list.removeFirst();
     }
 
     /**
      * 获得队头 复杂度O(1)
      */
+    @Override
     public E getFront() {
         return list.get(0);
     }
 
+    @Override
     public int getSize() {
         return list.size();
     }
 
+    @Override
     public boolean isEmpty() {
         return list.isEmpty();
     }

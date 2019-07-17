@@ -1,0 +1,176 @@
+package com.yuntian.advance.datastructure.list;
+
+/**
+ * @Auther: yuntian
+ * @Date: 2019/7/17 0017 00:27
+ * @Description:
+ */
+public class LinkedList<E> implements List<E> {
+
+    /**
+     * 设置一个虚拟头结点
+     */
+    private Node dummyHead;
+
+    /**
+     * 记录节点个数
+     */
+    private int size;
+
+    public LinkedList() {
+        this.dummyHead = new Node();
+    }
+
+
+    /**
+     * 节点
+     */
+    private class Node {
+
+        public Node next;
+
+        public E e;
+
+
+        public Node(E e, Node next) {
+            this.e = e;
+            this.next = next;
+        }
+
+        public Node(E e) {
+            this.e = e;
+            this.next = null;
+        }
+
+        public Node() {
+            this(null, null);
+        }
+
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "next=" + next +
+                    ", e=" + e +
+                    '}';
+        }
+    }
+
+
+    /**
+     * 在链表头添加新元素e 复杂度O(1)
+     */
+    public void addFirst(E e) {
+        add(e, 0);
+    }
+
+    /**
+     * 在链表尾部元素e 复杂度O(n)
+     */
+    public void addLast(E e) {
+        add(e, size);
+    }
+
+
+    /**
+     * 复杂度O(1)
+     * @return
+     */
+    public E removeFirst(){
+        return remove(0);
+    }
+
+    /**
+     * 复杂度O(n)
+     * @return
+     */
+    public E removeLast(){
+        return remove(size-1);
+    }
+
+
+
+
+    /**
+     * 新增节点
+     * <p>
+     * 1.将当前插入节点指针值赋值为其前驱节点原来的后继节点的位置
+     * <p>
+     * 2.修改前驱节点的指针值为当前插入节点的位置
+     *
+     * @param e
+     */
+    @Override
+    public void add(E e) {
+        add(e, size);
+    }
+
+
+    public void add(E e, int index) {
+        if (index < 0 || index > size) {
+            throw new IllegalArgumentException("add failed. index mismatch condition");
+        }
+        Node preNode = dummyHead;
+        for (int i = 0; i < index; i++) {
+            preNode = dummyHead.next;
+        }
+        preNode.next = new Node(e, preNode.next);
+        size++;
+    }
+
+
+    /**
+     * 找到index处的节点，前驱节点,后继节点
+     * @param index
+     * @return
+     */
+    @Override
+    public E remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("remove failed. index mismatch condition");
+        }
+        Node preNode = dummyHead;
+        for (int i = 0; i < index; i++) {
+            preNode = dummyHead.next;
+        }
+        Node deleteNode=preNode.next;
+        E e=deleteNode.e;
+        preNode.next=deleteNode.next;
+        deleteNode.next=null;
+
+        size--;
+        return e;
+    }
+
+
+
+
+
+    @Override
+    public E get(int index) {
+        // index不可以取到size，索引从0开始，最多取到size-1
+        if (index < 0 || index >=size){
+            throw new IllegalArgumentException("Add failed. Illegal index");
+        }
+        // 从索引为0元素开始
+        Node cur = dummyHead.next;
+        for (int i = 0; i < index; i++) {
+            cur=cur.next;
+        }
+        return cur.e;
+    }
+
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+
+}

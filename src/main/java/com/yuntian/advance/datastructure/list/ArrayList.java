@@ -26,11 +26,47 @@ public class ArrayList<E> implements List<E> {
         data = (E[]) new Object[capacity];
     }
 
+
     /**
-     * 列如 [1,2,3,0]
+     * 复杂度O(n)
+     * @param e
+     */
+    public void addFist(E e) {
+        add(e, 0);
+    }
+
+    /**
+     * 复杂度O(1)
+     * @param e
+     */
+    public void addLast(E e) {
+        add(e, size);
+    }
+
+
+    /**
+     * 复杂度O(n)
+     */
+    public E removeFirst() {
+        return remove(0);
+    }
+
+
+    /**
+     * 复杂度O(1)
+     */
+    public E removeLast() {
+        return remove(size-1);
+    }
+
+
+
+    /**
+     *
      *
      * @param e
      */
+    @Override
     public void add(E e) {
         add(e, size);
     }
@@ -57,11 +93,6 @@ public class ArrayList<E> implements List<E> {
     }
 
 
-    public E removeLast() {
-        return remove(size-1);
-    }
-
-
     /**
      * [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
      * [1,2,3,4,5,6,7,9,0,0,0,0,0,0,0,0]
@@ -71,6 +102,7 @@ public class ArrayList<E> implements List<E> {
      * 复杂度O(n)
      * @param index
      */
+    @Override
     public E remove(int index) {
         if (index < 0 || index >=size) {
             throw new IllegalArgumentException("remove failed. index mismatch condition");
@@ -91,6 +123,7 @@ public class ArrayList<E> implements List<E> {
         return ret;
     }
 
+    @Override
     public E get(int index) {
         if (index < 0 || index >=size) {
             throw new IllegalArgumentException("get failed. index mismatch condition");
@@ -138,10 +171,12 @@ public class ArrayList<E> implements List<E> {
     }
 
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public int size() {
         return size;
     }

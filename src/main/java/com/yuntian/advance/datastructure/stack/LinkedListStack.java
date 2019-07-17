@@ -1,53 +1,54 @@
 package com.yuntian.advance.datastructure.stack;
 
-import com.yuntian.advance.datastructure.list.ArrayList;
+import com.yuntian.advance.datastructure.list.LinkedList;
 
 /**
  * @author Administrator
  * @Auther: yuntian
  * @Date: 2019/7/16 0016 23:51
- * @Description: 栈结构 先进后出  可以将数组的首端当做栈底  尾端当做栈顶
+ * @Description: 栈结构 先进后出  可以将链表的头部当做栈顶  尾端当做栈底
  */
-public class ArrayStack<E> implements Stack<E> {
+public class LinkedListStack<E> implements Stack<E> {
 
-    private ArrayList<E> list;
+    private LinkedList<E> list;
 
-    public ArrayStack() {
-        list = new ArrayList<E>();
-    }
-
-    public ArrayStack(int capacity) {
-        list = new ArrayList<E>(capacity);
+    public LinkedListStack() {
+        list = new LinkedList<E>();
     }
 
 
     /**
-     * 添加最后 复杂度O(1)
+     * 添加头部 复杂度O(1)
      *
      * @param e
      */
+    @Override
     public void push(E e) {
-        list.addLast(e);
+        list.addFirst(e);
     }
 
     /**
-     * 删除最后 复杂度O(1)
+     * 删除头部 复杂度O(1)
      *
      * @return
      */
+    @Override
     public E pop() {
-        return list.removeLast();
+        return list.removeFirst();
     }
 
+    @Override
     public E peek() {
-        return list.get(list.size() - 1);
+        return list.get(0);
     }
 
+    @Override
     public boolean isEmpty() {
         return list.isEmpty();
     }
 
 
+    @Override
     public int size() {
         return list.size();
     }
