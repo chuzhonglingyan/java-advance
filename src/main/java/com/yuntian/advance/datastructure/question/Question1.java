@@ -69,4 +69,31 @@ public class Question1 {
         return headNode;
     }
 
+
+    /**
+     *  1->2->6->3->4->5->6->Null    1->2->3->4->5->Null
+     *     2->6->3->4->5->6->Null      2->3->4->5->Null
+     *       6->3->4->5->6->Null         3->4->5->Null
+     *          3->4->5->6->Null         3->4->5->Null
+     *            4->5->6->Null            4->5->Null
+     *              5->6->Null               5->Null
+     *                 6->Null
+     * @param headNode
+     * @param val
+     * @return
+     */
+    public static ListNode1 removeElements2(ListNode1 headNode, int val) {
+        if (headNode==null){
+            return  null;
+        }
+        ListNode1 res=removeElements2(headNode.next,val);
+        if (headNode.val==val){
+            return res;
+        }else {
+            // 这个head不需要删除，继续连接上链表。
+            headNode.next = res;
+            return headNode;
+        }
+    }
+
 }
