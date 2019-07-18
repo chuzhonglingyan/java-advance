@@ -160,6 +160,39 @@ public class LinkedList<E> implements List<E> {
         return cur.e;
     }
 
+    /**
+     * 修改链表的第index(0-based)个位置的元素为e
+     * 在链表中不是一个常用的操作，练习用
+     */
+    public void set(int index,E e){
+        // index不可以取到size，索引从0开始，最多取到size-1
+        if (index < 0 || index >=size){
+            throw new IllegalArgumentException("Set failed. Illegal index");
+        }
+        // 从索引为0元素开始
+        Node cur = dummyHead.next;
+        // 下面与找index-1个节点保持一致。上面执行了一次。所以从index-1个元素变成了找index个元素。
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        cur.e = e;
+    }
+
+    /**
+     *     查找链表中是否有元素e
+     */
+    public boolean contains(E e){
+        Node cur = dummyHead.next;
+        while (cur != null){
+            if (cur.e.equals(e)){
+                return true;
+            }
+            cur = cur.next;
+        }
+        return false;
+    }
+
+
 
     @Override
     public boolean isEmpty() {

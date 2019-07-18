@@ -81,11 +81,14 @@ public class LinkListWithHead<E> implements List<E> {
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("add failed. index mismatch condition");
         }
+        //1寻找index节点的前驱节点preNode
         Node preNode = head;
         for (int i = 0; i < index - 1; i++) {
             preNode = head.next;
         }
+        //2构建插入节点nodeInsert,将前驱节点preNode的next赋值给nodeInsert的next
 //       Node nodeInsert=new Node(e,preNode.next);
+        //3将前驱节点preNode的next指向插入节点
 //       preNode.next=nodeInsert;
         preNode.next = new Node(e, preNode.next);
         size++;
