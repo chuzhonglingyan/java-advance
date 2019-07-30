@@ -22,11 +22,14 @@ public class Question1 {
         System.out.println(listNode2.toString());
 
         // List :1->2->6->3->4->5->6->NULL
-        removeElements(listNode1, 6);
-        System.out.println(listNode1.toString());
+//        removeElements(listNode1, 6);
+//        System.out.println(listNode1.toString());
 
         removeElements(listNode2, 6);
         System.out.println(listNode2.toString());
+
+        removeElements2(listNode1, 6);
+        System.out.println(listNode1.toString());
     }
 
 
@@ -70,15 +73,22 @@ public class Question1 {
     }
 
 
-    /**
-     *  1->2->6->3->4->5->6->Null    1->2->3->4->5->Null
-     *     2->6->3->4->5->6->Null      2->3->4->5->Null
-     *       6->3->4->5->6->Null         3->4->5->Null
-     *          3->4->5->6->Null         3->4->5->Null
-     *            4->5->6->Null            4->5->Null
-     *              5->6->Null               5->Null
-     *                 6->Null
-     * @param headNode
+    /**    headNode 入栈变化              headNode出栈变化  res变化
+     *                                    ret          1->2->3->4->5->Null
+     *                                    headNode     1->2->6->3->4->5->6->Null
+     *                                    ret            2->3->4->5->Null
+     *                                    headNode       2->6->3->4->5->6->Null
+     *                                    ret               3->4->5->Null
+     *                                    headNode          6->3->4->5->6->Null
+     *栈底  1->2->6->3->4->5->6->Null      ret               3->4->5->Null
+     *     2->6->3->4->5->6->Null         headNode             3->4->5->6->Null
+     *       6->3->4->5->6->Null          ret                  4->5->Null
+     *          3->4->5->6->Null          headNode                4->5->6->Null
+     *            4->5->6->Null           ret                     5->Null
+     *              5->6->Null            headNode                  5->6->Null
+     * 栈顶               6->Null          ret                        Null
+     *                                    headNode                      6->Null
+     * @param headNode                    ret                         Null
      * @param val
      * @return
      */
@@ -86,8 +96,12 @@ public class Question1 {
         if (headNode==null){
             return  null;
         }
-        ListNode1 res=removeElements2(headNode.next,val);
-        if (headNode.val==val){
+        // 问题不断小化,头结点分离，对于头结点后面的链表进行删除元素操作
+        // 无论head如何，都将head与后面的红色部分连接起来。
+        // 将原问题转换为更小问题
+        ListNode1 res = removeElements2(headNode.next,val);
+        if (headNode.val == val){
+            // 继续调用更小问题求解。
             return res;
         }else {
             // 这个head不需要删除，继续连接上链表。

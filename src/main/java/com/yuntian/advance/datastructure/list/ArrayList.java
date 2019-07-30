@@ -27,6 +27,10 @@ public class ArrayList<E> implements List<E> {
     }
 
 
+    public ArrayList(E[] arr) {
+        data = arr;
+    }
+
     /**
      * 复杂度O(n)
      * @param e

@@ -50,7 +50,7 @@ public class LinkListWithHead<E> implements List<E> {
 
         @Override
         public String toString() {
-            return "Node{" +
+            return "TreeNode{" +
                     "next=" + next +
                     ", e=" + e +
                     '}';
@@ -87,7 +87,7 @@ public class LinkListWithHead<E> implements List<E> {
             preNode = head.next;
         }
         //2构建插入节点nodeInsert,将前驱节点preNode的next赋值给nodeInsert的next
-//       Node nodeInsert=new Node(e,preNode.next);
+//       TreeNode nodeInsert=new TreeNode(e,preNode.next);
         //3将前驱节点preNode的next指向插入节点
 //       preNode.next=nodeInsert;
         preNode.next = new Node(e, preNode.next);

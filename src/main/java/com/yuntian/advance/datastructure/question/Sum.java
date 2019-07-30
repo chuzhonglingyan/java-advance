@@ -33,6 +33,8 @@ public class Sum {
      *
      * s(n)=a[0]+a[1]+..a[n-1]
      *
+     *   栈底a[0]+a[1]+..a[n-1]栈顶
+     *
      * s(n)=s(n-1)+a[n-1]    n个
      *
      * @param data
@@ -42,7 +44,8 @@ public class Sum {
         if (index==data.length){
             return  0;
         }
-        int result=sum2(data,index+1);
-        return data[index]+result;
+        int x=sum2(data,index+1);
+        int result=x+data[index];
+        return result;
     }
 }
