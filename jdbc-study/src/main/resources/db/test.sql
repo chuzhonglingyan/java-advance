@@ -15,7 +15,7 @@ update product_stock set stock=stock+1 where product_id=1 and  stock=#{stock};
 select * from  `product_stock` where product_id=1
 update product_stock set stock=stock+1,version=version+1 where product_id=1 and  version=#{version};
 
-
+-- https://www.jianshu.com/p/ed896335b3b4
 --  乐观锁一  缩小颗粒度  以上update语句，在执行过程中，会在一次原子操作中自己查询一遍quantity的值，并将其扣减掉1。
 select * from  `product_stock` where product_id=1
 update product_stock set stock=stock-1 where product_id=1 and  stock-1>0;
