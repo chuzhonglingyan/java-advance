@@ -21,7 +21,7 @@ public class TestDbLock {
         final CountDownLatch countDownLatch = new CountDownLatch(task);
         for(int index = 0 ; index < task ; index++) {
             exec.submit(() -> {
-                boolean flag= ProductStockCrud.updateStockOptimisticLock(1, 1) == 1;
+                boolean flag= ProductStockCrud.updateStockOptimisticLockWithVersion(1, 1) == 1;
                 System.out.println("更新库存："+flag);
                 countDownLatch.countDown();
             });

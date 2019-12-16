@@ -18,6 +18,8 @@ public class ProductStock {
 
     private int status;
 
+    private int version;
+
     public int getId() {
         return id;
     }
@@ -50,6 +52,14 @@ public class ProductStock {
         this.status = status;
     }
 
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
     @Override
     public String toString() {
         return "ProductStock{" +
@@ -57,6 +67,7 @@ public class ProductStock {
                 ", productId='" + productId + '\'' +
                 ", stock=" + stock +
                 ", status=" + status +
+                ", version=" + version +
                 '}';
     }
 }

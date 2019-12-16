@@ -28,12 +28,13 @@ public class ProductStockCrud {
     }
 
     /**
-     * 悲观锁
+     * 行级锁/悲观锁:某一行或多行被锁住，本事务中数据不能动,下一个事务只能排队等候上一个事务结束，再动数据。
+     *
      * @param addStock
      * @param productId
      * @return
      */
-    public static int updateStockOptimisticLock(int addStock, int productId) {
+    public static int updateStockPessimisticLock(int addStock, int productId) {
         Connection conn = DBManager.getConnection();
         try {
             conn.setAutoCommit(false);
@@ -42,6 +43,7 @@ public class ProductStockCrud {
         }
         PreparedStatement pstmtSelect = null;
         PreparedStatement pstmtUpdate = null;
+        //行级锁：在sql语句后面加for update
         String sqlSelect = "select * from  `product_stock` where product_id=? for update";
         String sqlUpdate = "update product_stock set stock=stock+? where product_id=?";
 
@@ -66,7 +68,7 @@ public class ProductStockCrud {
 
             //提交事务（事务结束）
             conn.commit();
-        } catch (Exception  e) {
+        } catch (Exception e) {
             e.printStackTrace();
             try {
                 conn.rollback();
@@ -83,6 +85,98 @@ public class ProductStockCrud {
         }
         return resultUpdate;
     }
+
+    /**
+     * 乐观锁
+     *
+     * @param addStock
+     * @param productId
+     * @return
+     */
+    public static int updateStockOptimisticLock(int addStock, int productId) {
+        Connection conn = DBManager.getConnection();
+        PreparedStatement pstmtSelect = null;
+        PreparedStatement pstmtUpdate = null;
+        //行级锁：在sql语句后面加for update
+        String sqlSelect = "select * from  `product_stock` where product_id=? for update";
+        String sqlUpdate = "update product_stock set stock=stock+? where product_id=?  and stock=?";
+        int resultUpdate = 0;
+        try {
+            pstmtSelect = conn.prepareStatement(sqlSelect);
+            pstmtSelect.setInt(1, productId);
+            ResultSet resultSelect = pstmtSelect.executeQuery();
+            ProductStock order = new ProductStock();
+            if (resultSelect.next()) {
+                order.setId(resultSelect.getInt("id"));
+                order.setProductId(resultSelect.getString("product_id"));
+                order.setStock(resultSelect.getInt("stock"));
+                order.setStatus(resultSelect.getInt("status"));
+                resultSelect.close();
+            }
+            pstmtUpdate = conn.prepareStatement(sqlUpdate);
+            pstmtUpdate.setInt(1, addStock);
+            pstmtUpdate.setInt(2, productId);
+            pstmtUpdate.setInt(3, order.getStock());
+            resultUpdate = pstmtUpdate.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                pstmtSelect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBManager.close(conn, pstmtUpdate);
+        }
+        return resultUpdate;
+    }
+
+    /**
+     * 乐观锁
+     *
+     * @param addStock
+     * @param productId
+     * @return
+     */
+    public static int updateStockOptimisticLockWithVersion(int addStock, int productId) {
+        Connection conn = DBManager.getConnection();
+        PreparedStatement pstmtSelect = null;
+        PreparedStatement pstmtUpdate = null;
+        //行级锁：在sql语句后面加for update
+        String sqlSelect = "select * from  `product_stock` where product_id=? for update";
+        String sqlUpdate = "update product_stock set stock=stock+?,version=version+1 where product_id=?  and version=?";
+        int resultUpdate = 0;
+        try {
+            pstmtSelect = conn.prepareStatement(sqlSelect);
+            pstmtSelect.setInt(1, productId);
+            ResultSet resultSelect = pstmtSelect.executeQuery();
+            ProductStock order = new ProductStock();
+            if (resultSelect.next()) {
+                order.setId(resultSelect.getInt("id"));
+                order.setProductId(resultSelect.getString("product_id"));
+                order.setStock(resultSelect.getInt("stock"));
+                order.setStatus(resultSelect.getInt("status"));
+                order.setVersion(resultSelect.getInt("version"));
+                resultSelect.close();
+            }
+            pstmtUpdate = conn.prepareStatement(sqlUpdate);
+            pstmtUpdate.setInt(1, addStock);
+            pstmtUpdate.setInt(2, productId);
+            pstmtUpdate.setInt(3, order.getVersion());
+            resultUpdate = pstmtUpdate.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                pstmtSelect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            DBManager.close(conn, pstmtUpdate);
+        }
+        return resultUpdate;
+    }
+
 
     public static int update(int stock, int productId) {
         Connection conn = DBManager.getConnection();
