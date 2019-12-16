@@ -1,4 +1,4 @@
-package com.yuntian.advance.arithmetic;
+package com.yuntian.advance.arithmetic.hash;
 
 import com.yuntian.advance.datastructure.tree.MaxHeap;
 

@@ -6,7 +6,13 @@
 
     <groupId>com.yuntian</groupId>
     <artifactId>advance</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>iostudy</module>
+        <module>jdbc-study</module>
+    </modules>
 
     <properties>
         <!-- 文件拷贝时的编码 -->

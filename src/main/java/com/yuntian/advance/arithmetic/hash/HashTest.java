@@ -1,4 +1,4 @@
-package com.yuntian.advance.arithmetic;
+package com.yuntian.advance.arithmetic.hash;
 
 /**
  * @Auther: yuntian

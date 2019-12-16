@@ -76,7 +76,7 @@ public class ArrayList<E> implements List<E> {
     }
 
     /**
-     *  复杂度O(n)
+     *  复杂度O(n)  线程不安全
      * @param e
      * @param index
      */
@@ -89,8 +89,8 @@ public class ArrayList<E> implements List<E> {
             resize(capacity()*2);
         }
         //2.插入元素,需要将插入位置的元素以及后续元素向右移动(数组末端)
-        for (int i = index; i <size ; i++) {
-            data[i+1]=data[i];
+        if (size - index >= 0) {
+            System.arraycopy(data, index, data, index + 1, size - index);
         }
         data[index]=e;
         size++;
