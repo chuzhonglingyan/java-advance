@@ -17,6 +17,7 @@ CREATE TABLE `order` (
   `id` int(10)  NOT NULL AUTO_INCREMENT COMMENT '订单id',
   `user_name` varchar(50)  NOT NULL DEFAULT '' COMMENT '用户',
   `total_price` decimal(10,2) NOT NULL DEFAULT '0'  COMMENT '订单金额',
+  `order_status` tinyint(4)  NOT NULL DEFAULT '0'  COMMENT '订单状态 0:待付款,1:待发货,2:已发货,3:已完成 5:已取消,6:部分发货,7:退款中 ',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
